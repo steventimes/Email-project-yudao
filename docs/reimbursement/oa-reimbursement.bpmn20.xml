@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:flowable="http://flowable.org/bpmn"
+             targetNamespace="http://www.yudao.iocoder.cn/reimbursement">
+  <process id="oa_reimbursement" name="OA 报销审批" isExecutable="true">
+    <documentation>报销模块的结构参考模板。两个审批节点使用“发起人自己”作为未配置占位符，报销模块没有代码级自审兜底；部署前必须替换为真实且与申请人不同的经理、财务审批规则，禁止原样发布。</documentation>
+    <startEvent id="start" name="开始">
+      <outgoing>flow_start_manager</outgoing>
+    </startEvent>
+    <userTask id="managerApproval" name="部门经理审批">
+      <extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:approveType>1</flowable:approveType>
+      </extensionElements>
+      <incoming>flow_start_manager</incoming>
+      <outgoing>flow_manager_finance</outgoing>
+    </userTask>
+    <userTask id="financeApproval" name="财务审批">
+      <extensionElements>
+        <flowable:candidateStrategy>36</flowable:candidateStrategy>
+        <flowable:approveType>1</flowable:approveType>
+      </extensionElements>
+      <incoming>flow_manager_finance</incoming>
+      <outgoing>flow_finance_end</outgoing>
+    </userTask>
+    <endEvent id="end" name="结束">
+      <incoming>flow_finance_end</incoming>
+    </endEvent>
+    <sequenceFlow id="flow_start_manager" sourceRef="start" targetRef="managerApproval" />
+    <sequenceFlow id="flow_manager_finance" sourceRef="managerApproval" targetRef="financeApproval" />
+    <sequenceFlow id="flow_finance_end" sourceRef="financeApproval" targetRef="end" />
+  </process>
+</definitions>

@@ -1,0 +1,9 @@
+[submodule "email-imap-connector"]
+	path = email-imap-connector
+	url = https://github.com/steventimes/email-imap-connector.git
+[submodule "yudao-cloud"]
+	path = yudao-cloud
+	url = https://github.com/steventimes/yudao-cloud.git
+[submodule "yudao-ui-admin-vue3"]
+	path = yudao-ui-admin-vue3
+	url = https://github.com/steventimes/yudao-ui-admin-vue3.git

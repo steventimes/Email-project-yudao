@@ -1,0 +1,10 @@
+scripts/**
+test-data/**
+.vscode/**
+.playwright-cli/
+output/
+**/__pycache__/
+*.py[cod]
+*.difypkg
+.env
+.env.*
